@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samosa Junction - Crispy Outside, Legendary Inside</title>
+    <meta name="description" content="India's favourite handmade samosas. Fresh ingredients, authentic recipes, 25+ varieties. Order now for crispy perfection!">
+    <meta name="keywords" content="samosa, handmade samosa, Bardhaman, West Bengal, Indian snacks, samosa delivery">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Samosa Junction - India's Favourite Handmade Samosas">
+    <meta property="og:description" content="Crispy outside, legendary inside. Freshly made daily with authentic recipes.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=1200">
+    <meta property="og:url" content="https://samosajunction.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Samosa Junction",
+        "description": "Premium handmade samosas in Bardhaman",
+        "telephone": "+919876543210",
+        "email": "hello@samosajunction.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "GT Road",
+            "addressLocality": "Bardhaman",
+            "addressRegion": "West Bengal",
+            "addressCountry": "IN"
+        },
+        "image": "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=1200"
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React + Framer Motion -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.skypack.dev/framer-motion@10"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+        
+        * { font-family: 'Poppins', sans-serif; }
+        .glass { backdrop-filter: blur(20px); background: rgba(255,255,255,0.1); }
+        .saffron-gradient { background: linear-gradient(135deg, #FF9933 0%, #FF7B00 50%, #E65C00 100%); }
+        .cream-gradient { background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 50%, #FFE082 100%); }
+        .gold-glow { box-shadow: 0 0 30px rgba(255, 193, 7, 0.4); }
+        .samosa-pattern { background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF99330F' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .hero-bg { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Crect fill='%23FF9933' x='0' y='0' width='1200' height='800'/%3E%3C/svg%3E"); }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .float { animation: float 3s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-50 to-amber-100 samosa-pattern overflow-x-hidden">
+
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+const { motion, AnimatePresence, useInView, useMotionValue, useAnimation } = window.framerMotion;
+
+// ================================================
+// UTILITY COMPONENTS
+// ================================================
+function WhatsAppButton() {
+    const handleWhatsApp = () => {
+        window.open('https://wa.me/919876543210?text=Hi! I%20want%20to%20order%20samosas%20from%20Samosa%20Junction%20%F0%9F%91%8D');
+    };
+
+    return (
+        <motion.button
+            onClick={handleWhatsApp}
+            whileHover={{ scale: 1.1, y: -5 }}
+            whileTap={{ scale: 0.95 }}
+            className="fixed bottom-8 right-8 z-50 w-16 h-16 bg-green-500 text-white rounded-2xl shadow-2xl gold-glow border-4 border-white flex items-center justify-center text-xl shadow-lg"
+        >
+            💬
+        </motion.button>
+    );
+}
+
+function LoadingScreen() {
+    const [isLoading, setIsLoading] = useState(true);
+    
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (!isLoading) return null;
+
+    return (
+        <div className="fixed inset-0 bg-gradient-to-r from-orange-400 to-amber-500 z-50 flex items-center justify-center">
+            <motion.div 
+                animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-24 h-24 border-8 border-white/30 border-t-white rounded-2xl"
+            />
+            <div className="absolute bottom-12 text-white text-2xl font-bold">Samosa Junction</div>
+        </div>
+    );
+}
+
+// ================================================
+// NAVBAR
+// ================================================
+function Navbar() {
+    const [scrolled, setScrolled] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [darkMode, setDarkMode] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 50);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    return (
+        <motion.nav 
+            className={`fixed top-0 w-full z-40 transition-all duration-500 py-4 px-6 ${
+                scrolled 
+                    ? 'bg-white/90 backdrop-blur-xl shadow-xl' 
+                    : 'bg-transparent'
+            }`}
+            initial={{ y: -100 }}
+            animate={{ y: 0 }}
+        >
+            <div className="max-w-6xl mx-auto flex justify-between items-center">
+                {/* Logo */}
+                <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    className="flex items-center space-x-3"
+                >
+                    <div className="w-14 h-14 saffron-gradient rounded-2xl flex items-center justify-center shadow-2xl">
+                        <span className="text-2xl font-black text-white drop-shadow-lg">S</span>
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-black bg-gradient-to-r from-orange-500 to-amber-600 bg-clip-text text-transparent">Samosa Junction</h1>
+                        <p className="text-sm text-orange-600 font-medium">Crispy Outside, Legendary Inside</p>
+                    </div>
+                </motion.div>
+
+                {/* Desktop Menu */}
+                <div className="hidden lg:flex items-center space-x-8">
+                    {['Home', 'Menu', 'About', 'Gallery', 'Contact'].map(item => (
+                        <a key={item} href={`#${item.toLowerCase()}`} className="text-lg font-semibold text-gray-700 hover:text-orange-500 transition-all duration-300 hover:scale-105">{item}</a>
+                    ))}
+                </div>
+
+                {/* Desktop CTAs */}
+                <div className="hidden lg:flex items-center space-x-4">
+                    <button className="px-6 py-3 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-gold-glow">
+                        Order Now
+                    </button>
+                    <button className="p-2 rounded-xl bg-gray-200 hover:bg-gray-300 transition-colors">
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" /></svg>
+                    </button>
+                    <button className="p-2 rounded-xl bg-orange-500 text-white hover:bg-orange-600 transition-colors">
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0
