@@ -1,2 +1,0 @@
-from samosa import app
-
